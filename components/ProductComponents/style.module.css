@@ -1,0 +1,154 @@
+/*product Image */
+.openBagImgContainer {
+  position: relative;
+  display: block;
+  overflow: hidden;
+}
+.openBagImg {
+  height: 650px;
+  width: 100%;
+  position: relative;
+  z-index: 2;
+}
+/*end product Image style*/
+/*product Content */
+.prouductHeader {
+  position: relative;
+  background: var(--background);
+  z-index: 2;
+}
+.productList {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  width: 100%;
+  align-items: center;
+  flex-direction: row;
+}
+.productItem {
+  width: calc(100% / 3);
+  aspect-ratio: 1/1;
+  position: relative;
+  max-height: 15rem;
+}
+/*end product Content style*/
+/*product details */
+.productDetails {
+  margin: 2.2rem 0;
+}
+.productCardDetails {
+  display: flex;
+  gap: 0.5rem;
+  background-color: var(--third-color);
+  color: var(--text-color);
+  overflow: hidden;
+  position: relative;
+  flex-direction: column-reverse;
+  width: 22rem;
+  aspect-ratio: 11/16;
+  border-radius: 0.7rem;
+}
+.productContent {
+  z-index: 1;
+  padding: 1rem 1.5rem;
+  position: absolute;
+  background: linear-gradient(to top, var(--gradient-color) 0%, transparent);
+  color: var(--background);
+  bottom: 0;
+}
+.productDetailsHeader {
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+  font-weight: 700;
+  text-transform: capitalize;
+}
+.productDescription {
+  font-size: .8rem;
+  font-family: var(--font-degular-text);
+}
+.productContentImg {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+/*end product details style*/
+/*Get product*/
+.getProductSection {
+  margin: 2.2rem 0;
+  position: relative;
+  height: calc(65vh + 2.2rem);
+  width: 100%;
+  background-image: url("/product-background.webp");
+  background-attachment: fixed; /* هنا السحر */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.getProductContant {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 0.5rem;
+  text-align: center;
+  width: 100%;
+  height: 100%;
+}
+.getProductHeader {
+  color: var(--background);
+}
+.getProductText {
+  color: var(--background);
+  font-size: 1.6rem;
+}
+
+/*end get product style*/
+@media (max-width: 1020px) {
+  .getproductItem {
+    width: calc((100% - 1 * 1.2rem) / 2);
+  }
+  .productDescription {
+    font-size: 0.8rem;
+  }
+}
+@media (max-width: 680px) {
+  /*product Content */
+  .prouductHeader {
+    font-size: 2.2rem;
+    padding: 0.3rem;
+  }
+  .productList {
+    flex-direction: column;
+  }
+  .productItem {
+    width: calc(100%);
+    max-height: 12rem;
+  }
+  /*end product content style*/
+  /*product details */
+  .productContent {
+    padding: 1rem 0.5rem;
+    position: absolute;
+    background: linear-gradient(to top, var(--gradient-color) 0%, transparent);
+    color: var(--background);
+    bottom: 0;
+  }
+  .productCardDetails {
+    flex-direction: column-reverse;
+    max-height: 39rem;
+  }
+  .productDetailsHeader {
+    font-size: 1.4rem;
+    margin-bottom: 1rem;
+  }
+
+  /*end product details style*/
+  /*Get product*/
+  .getProductHeader {
+    font-size: 1.6rem;
+  }
+  .getProductText {
+    font-size: 1rem;
+  }
+  /*end get product style*/
+}

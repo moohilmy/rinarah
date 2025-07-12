@@ -1,0 +1,47 @@
+.LandingNameSection{
+    margin: 3rem auto;
+    padding: 2rem 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.landingContent{
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+    background: var(--background);
+overflow: hidden;
+}
+.brandLogo{
+    background: var(--background);
+    z-index: 2;
+    position: relative;
+    overflow: hidden;
+}
+.brandName{
+    text-transform: capitalize;
+    line-height: 2rem;
+    letter-spacing: 5px;
+    font-weight: 600;
+    font-size: 2.5rem;
+    font-family: var(--font-logo);
+    background: var(--background);
+    color: var(--primary);
+}
+.brandSlogan{
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    line-height: 1.2rem;
+    font-weight: 700;
+    margin-top: .5rem;
+    letter-spacing: .8;
+    color: var(--first-linear-color);
+    
+
+}
+@media (max-width: 768px) {
+    .LandingNameSection{
+        margin: 1rem auto;
+        padding: 1rem 0;
+    }
+}

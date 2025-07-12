@@ -1,0 +1,22 @@
+.footer{
+    padding: 1rem 2rem;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--second-color);
+    color: var(--first-linear-color);
+    display: flex;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .7;
+}
+.Devlink{
+    position: relative;
+    display: flex;
+    gap: .2rem;
+}
+@media (max-width: 680px){
+    .footer{
+        flex-direction: column;
+        gap: .4rem;
+    }
+}

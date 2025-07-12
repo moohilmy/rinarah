@@ -1,0 +1,116 @@
+.checkoutList {
+  position: sticky;
+  top: 2rem;
+}
+.iteamsInCart {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem 0;
+  border-bottom: 1px solid var(--primary);
+  gap: 1rem;
+}
+.itemCart {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.itemInfo {
+  gap: 0.8rem;
+  align-items: center;
+  display: flex;
+}
+.clearBtn {
+  font-size: 0.8rem;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  color: var(--text-color);
+  cursor: pointer;
+  text-transform: capitalize;
+
+  gap: 0.2rem;
+}
+.itemCartImage,
+.itemCartImageSkeleton {
+  width: 7rem;
+  aspect-ratio: 1/1;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  position: relative;
+}
+.itemCartImageSkeleton,
+.smallItemsSkeleton,
+.bigItemsSkeleton {
+  background-color: var(--primary);
+  border-radius: 0.5rem;
+  animation: skeletonPulse 3s infinite linear;
+}
+.bigItemsSkeleton {
+  width: 10rem;
+  height: 1rem;
+}
+.smallItemsSkeleton {
+  width: 4rem;
+  height: 1rem;
+}
+@keyframes skeletonPulse {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+  75% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+.itemDetails {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+.itemHeader {
+  font-weight: 700;
+  font-size: 0.8rem;
+  color: var(--primary);
+}
+.itemPrice {
+  font-weight: 800;
+  font-size: 0.65rem;
+  color: var(--text-color);
+}
+.checkoutInfo {
+  padding: 1rem 0;
+}
+.checkoutInfobox {
+  width: 100%;
+  height: 3rem;
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+}
+.checkoutSubHeader {
+  font-weight: 400;
+  font-size: 0.8rem;
+  color: var(--primary);
+  text-transform: capitalize;
+}
+.checkoutSubPrice {
+  font-size: 0.6rem;
+  font-weight: 600;
+}
+.checkoutMainPrice {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--primary);
+  text-transform: capitalize;
+}
+.checkoutMainHeader {
+  font-weight: 800;
+  font-size: 1.1rem;
+  text-transform: capitalize;
+  color: var(--primary);
+}

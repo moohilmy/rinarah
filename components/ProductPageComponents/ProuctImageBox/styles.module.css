@@ -1,0 +1,47 @@
+.imageSectionSelector {
+  display: flex;
+  gap: 2.2rem;
+  align-items: center;
+  width: 100%;
+  position: sticky;
+  top: 1.2rem;
+}
+.imageList {
+  display: flex;
+  gap: 0.5rem;
+  flex-direction: column;
+  width: 3.8125rem;
+}
+.imageItem {
+  overflow: hidden;
+  cursor: pointer;
+  width: 100%;
+  border-radius: 0.7rem;
+  aspect-ratio: 1/1;
+  position: relative;
+}
+.imageSeleced {
+  aspect-ratio: 1;
+  border-radius: 0.7rem;
+  overflow: hidden;
+  position: relative;
+  flex: 1;
+}
+
+@media (max-width: 860px) {
+  .imageSectionSelector {
+    flex-direction: column-reverse;
+  }
+  .imageSeleced {
+    width: 100%;
+  }
+  .imageList {
+    flex-direction: row;
+    width: 100%;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+  .imageItem {
+    width: calc((100% - 4 * 0.5rem) / 5);
+  }
+}

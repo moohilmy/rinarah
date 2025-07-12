@@ -1,0 +1,44 @@
+.landingImageContainer{
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    height: 100vh;
+    min-height: 100vh;
+    justify-content: space-between;
+}
+.landingBackGround{
+    position: absolute;
+    z-index: -1;
+    width: 100%;
+    height: 100%;
+}
+.landingImage{
+    height: 100%;
+    position: relative;
+    width: 100%;
+}
+
+.backGroungImgContainer,.frontImgContent,.imgContent{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+}
+.frontImgContent{
+    height: calc(100% + 3.8rem);
+}
+.imgContainer{
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+.frontImgContent{
+    z-index: 2;
+}
+.imgContent{
+    z-index: 1;
+    position: relative;
+}
+.backGroundImg{
+    object-fit: contain;
+
+}

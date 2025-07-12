@@ -1,0 +1,36 @@
+.checkoutSection {
+  grid-area: shell-content;
+  display: grid;
+  grid-template-areas: "main order-summary";
+  grid-template-columns:
+    minmax(min-content, calc(50% + calc(calc(66rem - 52rem) / 2)))
+    1fr;
+}
+
+.checkoutContent {
+  grid-area: main;
+  display: flex;
+  justify-content: flex-end;
+  height: 100%;
+}
+
+.checkoutList {
+  display: block;
+  grid-area: order-summary;
+  padding: 2rem;
+  height: 100%;
+  background-color: var(--first-linear-color);
+  position: relative;
+}
+
+@media (max-width: 980px) {
+  .checkoutSection {
+    display: block;
+  }
+  .checkoutContent{
+    justify-content: center;
+  }
+  .checkoutList {
+    display: none;
+  }
+}

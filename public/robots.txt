@@ -1,0 +1,18 @@
+User-agent: *
+
+
+Disallow: /app-control/
+Disallow: /app-control/*/Admin/
+Disallow: /app-control/*/Admin/Login/
+
+
+Allow: /Checkout/
+Allow: /Products/
+Allow: /Products/*
+
+
+Allow: /Page.tax
+Allow: /Page
+
+
+Disallow: /admin-layout/

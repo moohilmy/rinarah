@@ -1,0 +1,81 @@
+.inputFieldContainer {
+  width: 100%;
+  margin-bottom: 0.5rem;
+}
+.inputFieldContainerSkeleton{
+  width: 100%;
+  margin-bottom: 0.5rem;
+  animation: loading 3s linear infinite;
+}
+.inputFieldContainerSkeleton{
+  margin-bottom: 0.5rem;
+  height: 40px;
+  border-radius: .5rem;   
+  background-color: var(--first-linear-color);
+  animation: loading 3s linear infinite;
+}
+.inputFieldInfoSkeleton{
+  height: 200px;
+    border-radius: .5rem;   
+  background-color: var(--first-linear-color);
+  animation: loading 3s linear infinite;
+}
+.btnSkeleton{
+  height: 30px;
+  background-color: var(--first-linear-color);
+  animation: loading 3s linear infinite;
+}
+@keyframes loading {
+  0%{
+    opacity: 1;
+  }
+  50%{
+    opacity: .6;
+  }
+  100%{
+    opacity: 1;
+  }
+}
+.inputFieldInfo {
+  display: flex;
+  margin-bottom: 0.5rem;
+  justify-content: space-between;
+}
+.inputField {
+  width: 100%;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  outline-color: var(--second-color);
+}
+.fromSecton {
+  flex-basis: 40%;
+  padding: 1rem 2rem;
+  border-radius: 0.75rem;
+  background: linear-gradient(
+    90deg,
+    var(--first-linear-color) 0%,
+    var(--third-color) 100%
+  );
+  border: 1px solid var(--primary);
+}
+.textareaField {
+  resize: none;
+  width: 100%;
+  padding: 0.5rem 1rem;
+  outline-color: var(--second-color);
+  border-radius: 0.5rem;
+}
+
+
+.landingContentSection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+
+@media (max-width: 768px) {
+  .fromSecton {
+    flex-basis: 100%;
+  }
+}

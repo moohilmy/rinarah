@@ -1,0 +1,6 @@
+.productsSection{
+    display: flex;
+    gap: .5rem;
+    flex-wrap: wrap;
+    margin: 4.2rem 0;
+}

@@ -3,7 +3,7 @@ import React from "react";
 import { ToastContainer } from "react-toastify";
 import type { Metadata } from "next";
 import { logoFont, mainFont, textFont } from "./fonts";
-
+import { Analytics } from "@vercel/analytics/next"
 export const metadata: Metadata = {
   metadataBase: new URL("https://rinarah.com"),
   title: "RINARAH",
@@ -68,6 +68,7 @@ export default function RootLayout({
         <ToastContainer />
 
         {children}
+        <Analytics />
       </body>
     </html>
   );

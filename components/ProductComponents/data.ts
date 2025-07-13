@@ -8,7 +8,7 @@ type ProductDetails = {
 }
 const ProductsList : ProductDetails[] = [
     {
-        title: 'egyption loofeh',
+        title: 'egyption loofah',
         image: '/image.png',
         price: 12,
         link: 'https://www.amazon.com/Natural-Egyptian-Shower-Loofah-Sponge/dp/B097LKWW2J?ref_=ast_sto_dp',
@@ -17,7 +17,7 @@ const ProductsList : ProductDetails[] = [
 
     },
     {
-        title: 'egyption loofeh',
+        title: 'egyption loofah',
         image: '/image.png',
         price: 12,
         link: 'https://www.amazon.com/Natural-Egyptian-Shower-Loofah-Sponge/dp/B097LKWW2J?ref_=ast_sto_dp',
@@ -26,7 +26,7 @@ const ProductsList : ProductDetails[] = [
 
     },
     {
-        title: 'egyption loofeh',
+        title: 'egyption loofah',
         image: '/image.png',
         price: 12,
         link: 'https://www.amazon.com/Natural-Egyptian-Shower-Loofah-Sponge/dp/B097LKWW2J?ref_=ast_sto_dp',
@@ -35,7 +35,7 @@ const ProductsList : ProductDetails[] = [
 
     },
     {
-        title: 'egyption loofeh',
+        title: 'egyption loofah',
         image: '/image.png',
         price: 12,
         link: 'https://www.amazon.com/Natural-Egyptian-Shower-Loofah-Sponge/dp/B097LKWW2J?ref_=ast_sto_dp',
@@ -44,7 +44,7 @@ const ProductsList : ProductDetails[] = [
 
     },
     {
-        title: 'egyption loofeh',
+        title: 'egyption loofah',
         image: '/image.png',
         price: 12,
         link: 'https://www.amazon.com/Natural-Egyptian-Shower-Loofah-Sponge/dp/B097LKWW2J?ref_=ast_sto_dp',

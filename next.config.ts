@@ -4,7 +4,7 @@ const cloudName = process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME;
 
 const nextConfig: NextConfig = {
   compress: true,
-
+  
   images: {
     remotePatterns: [
       {
@@ -18,6 +18,7 @@ const nextConfig: NextConfig = {
   },
 
   experimental: {
+    
     optimizePackageImports: [
       "animejs",
       "zod",

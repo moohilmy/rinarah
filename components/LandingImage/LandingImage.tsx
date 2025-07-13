@@ -99,7 +99,7 @@ export default function LandingImage() {
             opacity: { duration: 1.2, delay: 0, ease: "linear" }, // تظهر في ثانية
           }}
         >
-          <Image fill fetchPriority='high'   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" alt="front" src={'https://res.cloudinary.com/dvz8rxqde/image/upload/v1752403652/kd7czsgpvqycewjncdao.png'} style={{ objectFit: "cover" }} />
+          <Image fill  priority={true} sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" alt="front" src={'https://res.cloudinary.com/dvz8rxqde/image/upload/v1752403652/kd7czsgpvqycewjncdao.png'} style={{ objectFit: "cover" }} />
         </motion.div>
 
         {/* Bag Image */}

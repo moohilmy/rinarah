@@ -78,7 +78,7 @@
   position: relative;
   height: calc(65vh + 2.2rem);
   width: 100%;
-  background-image: url("/product-background.webp");
+  background-image: url("https://res.cloudinary.com/dvz8rxqde/image/upload/v1752403984/ihkjzorxzobbbrhmtzvw.webp");
   background-attachment: fixed; /* هنا السحر */
   background-position: center;
   background-repeat: no-repeat;

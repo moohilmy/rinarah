@@ -1,10 +1,10 @@
 import type { NextConfig } from "next";
 
-const cloudName = process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME;
+const cloudName = process.env.CLOUDINARY_CLOUD_NAME;
 
 const nextConfig: NextConfig = {
   compress: true,
-  
+
   images: {
     remotePatterns: [
       {
@@ -13,12 +13,17 @@ const nextConfig: NextConfig = {
         port: "",
         pathname: `/${cloudName}/image/upload/**`,
       },
+      {
+        protocol: "https",
+        hostname: "res.cloudinary.com",
+        port: "",
+        pathname: `/upload/**`,
+      },
     ],
     minimumCacheTTL: 86400,
   },
 
   experimental: {
-    
     optimizePackageImports: [
       "animejs",
       "zod",

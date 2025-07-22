@@ -1,8 +1,46 @@
-
+import { ShippoResponse } from "@/types";
 import { NextRequest, NextResponse } from "next/server";
+
+const SHIPPO_API = "https://api.goshippo.com/transactions";
+
+async function createShippoLabel(
+  rateObjectId: string
+): Promise<ShippoResponse> {
+  const token = process.env.SHIPPO_TOKEN;
+  if (!token) throw new Error("Shippo token is missing in environment");
+
+  const response = await fetch(SHIPPO_API, {
+    method: "POST",
+    headers: {
+      Authorization: `ShippoToken ${token}`,
+      "Content-Type": "application/json",
+      Accept: "application/json",
+    },
+    body: JSON.stringify({
+      rate: rateObjectId,
+      label_file_type: "PDF",
+      async: false,
+    }),
+  });
+
+  if (!response.ok) {
+    let errorDetails: unknown;
+    try {
+      errorDetails = await response.json();
+    } catch {
+      errorDetails = await response.text();
+    }
+    console.error("Shippo error:", errorDetails);
+    throw new Error(JSON.stringify(errorDetails));
+  }
+
+  return await response.json();
+}
+
 export async function POST(request: NextRequest) {
   try {
     const { rateObjectId } = await request.json();
+
     if (!rateObjectId) {
       return NextResponse.json(
         { error: "rateObjectId is required" },
@@ -10,49 +48,9 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const shippoRes = await fetch("https://api.goshippo.com/transactions", {
-      method: "POST",
-      headers: {
-        Authorization: `ShippoToken ${process.env.SHIPPO_TOKEN}`,
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-      body: JSON.stringify({
-        rate: rateObjectId,
-        label_file_type: "PDF",
-        async: false,
-      }),
-    });
-
-    if (!shippoRes.ok) {
-      let errBody: unknown;
-      try {
-        errBody = await shippoRes.json();
-      } catch {
-        errBody = await shippoRes.text();
-      }
-
-      console.error("Shippo error:", errBody);
-      return NextResponse.json(
-        { error: errBody },
-        { status: shippoRes.status }
-      );
-    }
-
-    const data = await shippoRes.json();
-    console.log("Shippo response:", data);
+    const data = await createShippoLabel(rateObjectId);
     
-    return NextResponse.json(
-      {
-        labelUrl: data.label_url,
-        tracking: data.tracking_number,
-        id: data.object_id,
-        trackingUrl: data.tracking_url_provider,
-        createdAt: data.object_created,
-        rateObjectId: data.rate,
-      },
-      { status: 200 }
-    );
+    return NextResponse.json(data, { status: 200 });
   } catch (error) {
     console.error("Internal Server Error:", error);
     return NextResponse.json(

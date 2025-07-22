@@ -1,50 +1,94 @@
-// app/(shop)/checkout/success/page.tsx
 import { notFound } from "next/navigation";
-import Stripe from "stripe";
+import Link from "next/link";
+import { checkOrderIsCorrect } from "@/utils";
+import { TEmail, TOrder } from "@/types";
 
+const sentEmail = async (emailBody: TEmail) => {
+  try {
+    const res = await fetch("/api/email/send-email", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(emailBody)
+    });
+    return await res.json()
+  } catch (error) {
+    console.error('error is', error);
+    throw new Error('Failed to send email');
+  }
+};
 export default async function SuccessPage({
   searchParams,
 }: {
-  searchParams: Promise<{ session_id?: string }>;
+  searchParams: Promise<{ pi?: string }>;
 }) {
-  const { session_id } = await searchParams;
-  if (!session_id) return notFound(); 
-  
+  const { pi } = await searchParams;
+  if (!pi) return notFound();
 
-  const stripe = new Stripe(process.env.SECRET_API_KEY!, {
-    apiVersion: "2025-04-30.basil",
-  });
+  const order: TOrder = await checkOrderIsCorrect(pi);
 
-  try {
-    const session = await stripe.checkout.sessions.retrieve(session_id, {
-      expand: ["payment_intent"],
-    });
+  if (!order) return notFound();
 
-    if (session.payment_status !== "paid") return notFound();
+  const {
+    subtotal,
+    tax,
+    items,
+    amountTotal,
+    shipping,
+    stripePaymentIntentId,
+    customerEmail,
+  } = order;
 
-    const paymentIntent = session.payment_intent as Stripe.PaymentIntent;
-
-    return (
-      <div className="p-8 text-center">
-        <h1 className="text-3xl font-bold mb-4">شكراً لطلبك! 🎉</h1>
-        <p>رقم الأوردر هو <b>{paymentIntent.id}</b></p>
-      </div>
+  if (!order.isEmailSent) {
+    const timeCreateOrder = new Date(order?.createdAt as string).toLocaleString(
+      "en-US",
+      {
+        month: "long",
+        day: "numeric",
+        year: "numeric",
+        hour: "numeric",
+        minute: "2-digit",
+        hour12: true,
+      }
     );
-  } catch (err: unknown)  {
-    // لو حصل error من نوع resource_missing
-    if (
-      typeof err === "object" &&
-      err !== null &&
-      "type" in err &&
-      "code" in err &&
-      (err as { type?: string; code?: string }).type === "StripeInvalidRequestError" &&
-      (err as { type?: string; code?: string }).code === "resource_missing"
-    ) {
-      return notFound();
-    }
 
-    // ممكن تطبع أي خطأ آخر أو تسجّله
-    console.error("Stripe error:", err);
-    return notFound();
+    sentEmail({
+      customerEmail: customerEmail,
+      customerName: shipping.name,
+      orderId: stripePaymentIntentId,
+      orderDate: timeCreateOrder,
+      subtotal,
+      tax,
+      paymentMethod: 'cvajva',
+      total: amountTotal,
+      items,
+      billing: {
+        shipping: {
+          name: shipping.name,
+          address: shipping.address,
+          shippingPrice: shipping.shippingPrice,
+          phone: shipping.phone,
+        },
+      },
+    });
   }
+
+  return (
+    <div className="min-h-[85vh] flex flex-col items-center justify-center px-6 py-10 text-center">
+      <h1 className="text-3xl font-bold text-second-color mb-4">
+        Thank you for your order! 🎉
+      </h1>
+      <p className="text-lg mb-2">
+        Your payment was successful. Your order number is:
+      </p>
+      <p className="text-md text-background bg-primary px-4 py-2 rounded-md mb-6">
+        {order.stripePaymentIntentId}
+      </p>
+
+      <Link href="/" className="inline-block rinarahBtn">
+        Back to Home
+      </Link>
+    </div>
+  );
 }
+
+

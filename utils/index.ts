@@ -4,5 +4,6 @@ import { isZipCodeInState } from "./isZipCodeInState";
 import { GetProductByID } from "./getProductByID";
 import { getParcelsWeight } from "./getParcelsWeight";
 import { getTaxPercent } from "./getTaxPercent";
+import { checkOrderIsCorrect } from "./orderCheck";
 import { convertToSubcurrency } from "./convertToSubcurrency";
-export {discountCalculator,GetProductByID,getAllProducts, isZipCodeInState, getParcelsWeight, getTaxPercent,convertToSubcurrency};
+export {discountCalculator,GetProductByID,getAllProducts, isZipCodeInState, getParcelsWeight, getTaxPercent,convertToSubcurrency, checkOrderIsCorrect};

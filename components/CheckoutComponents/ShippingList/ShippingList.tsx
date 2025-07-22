@@ -29,7 +29,7 @@ export default function ShippingList({
   register,
   errors,
 }: Props) {
-  const { address, state, zipCode, city, country } = useWatch({ control });
+  const { address, state, zipCode, city, country, firstName, lastName, phoneNumber, email } = useWatch({ control });
 
   const isValidAddress = useMemo(
     () => Boolean(address && state && zipCode && city && country),
@@ -59,9 +59,9 @@ export default function ShippingList({
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           customerAddress: {
-            name: "test",
-            phone: "5541222251",
-            email: "hilmy7132@gmail.com",
+            name: `${firstName} ${lastName}`,
+            phone: phoneNumber,
+            email: email,
             street1: address,
             city,
             state,
@@ -94,6 +94,10 @@ export default function ShippingList({
     state,
     weight,
     zipCode,
+    firstName,
+    lastName,
+    phoneNumber,
+    email,
   ]);
 
   useEffect(() => {

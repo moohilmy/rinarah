@@ -5,7 +5,7 @@ import { LoadingPage } from "@/loading";
 import { useCartStore } from "@/store";
 import { convertToSubcurrency } from "@/utils";
 import { Elements } from "@stripe/react-stripe-js";
-import { stripePromise } from "@/lib/stripe"; // Moved here
+import { stripe } from "@/lib/stripe"; // Moved here
 import { useEffect } from "react";
 
 export default function CheckoutFormWrapper({
@@ -33,7 +33,7 @@ export default function CheckoutFormWrapper({
 
   return (
     <Elements
-      stripe={stripePromise}
+      stripe={stripe}
       options={{
         clientSecret: secret.clientSecret,
         appearance: {

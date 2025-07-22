@@ -10,8 +10,11 @@ const OrderSchema = new Schema<IOrderDocument>(
     paymentStatus: String,
     paymentMethod: String,
     amountTotal: Number,
+    subtotal: Number,
+    tax: Number,
     currency: String,
     customerEmail: String,
+    isEmailSent: { type: Boolean, default: false },
     shipping: {
       name: String,
       phone: String,
@@ -23,25 +26,36 @@ const OrderSchema = new Schema<IOrderDocument>(
         country: String,
       },
     },
+
     shippo: {
-      shipmentId: String,
+      transactionId: String,
       rateId: String,
       trackingNumber: String,
-      carrier: String,
-      serviceLevel: String,
+      trackingStatus: String,
+      objectState: String,
       labelUrl: String,
+      status: String,
+      messages: [
+        {
+          source: String,
+          code: String,
+          text: String,
+        },
+      ],
     },
+
     items: [
       {
-        productId: String,
-        productName: String,
+        id: String,
+        name: String,
         quantity: Number,
-        unitPrice: Number,
+        price: Number,
+        _id: false,
       },
     ],
+
     status: {
       type: String,
-      enum: ["pending", "paid", "shipped", "delivered", "cancelled"],
       default: "pending",
     },
   },
@@ -51,44 +65,59 @@ const OrderSchema = new Schema<IOrderDocument>(
 export const validateOrder = (orderData: TOrder) => {
   const schema = Joi.object({
     stripePaymentIntentId: Joi.string().required(),
+    paymentStatus: Joi.string().required(),
+    paymentMethod: Joi.string().required(),
+    amountTotal: Joi.number().min(0).required(),
+    tax: Joi.number().min(0).required(),
+    subtotal: Joi.number().min(0).required(),
+    currency: Joi.string().length(3).required(),
     customerEmail: Joi.string().email().required(),
+
+    shipping: Joi.object({
+      name: Joi.string().required(),
+      phone: Joi.string().allow("", null),
+      shippingPrice: Joi.number().required(),
+      address: Joi.object({
+        line1: Joi.string().required(),
+        city: Joi.string().required(),
+        state: Joi.string().allow("", null),
+        zip: Joi.string().required(),
+        country: Joi.string().required(),
+      }).required(),
+    }).required(),
+
+    shippo: Joi.object({
+      transactionId: Joi.string().required(),
+      rateId: Joi.string().required(),
+      trackingNumber: Joi.string().optional().allow("", null),
+      trackingStatus: Joi.string().required(),
+      objectState: Joi.string().required(),
+      labelUrl: Joi.string().uri().optional().allow("", null),
+      status: Joi.string().required(),
+      messages: Joi.array()
+        .items(
+          Joi.object({
+            source: Joi.string().optional(),
+            code: Joi.string().optional(),
+            text: Joi.string().required(),
+          })
+        )
+        .optional(),
+    }).required(),
+
     items: Joi.array()
       .items(
         Joi.object({
-          productId: Joi.string().required(),
-          productName: Joi.string().required(),
+          id: Joi.string().required(),
+          name: Joi.string().required(),
           quantity: Joi.number().min(1).max(9).required(),
-          unitPrice: Joi.number().min(0.01).required(),
-          totalPrice: Joi.number().min(0.01).required(),
+          price: Joi.number().min(0.01).required(),
         })
       )
       .min(1)
       .required(),
 
-    amountTotal: Joi.number().min(0).required(),
-    currency: Joi.string().length(3).required(),
-    status: Joi.string()
-      .valid("pending", "paid", "failed", "shipped", "delivered", "cancelled")
-      .default("pending")
-      .required(),
-
-    paymentMethod: Joi.string().required(),
-
-    shipping: Joi.object({
-      name: Joi.string().required(),
-      phone: Joi.string().allow("", null),
-      address: Joi.object({
-        line1: Joi.string().required(),
-        city: Joi.string().required(),
-        state: Joi.string().allow("", null),
-        country: Joi.string().required(),
-        postalCode: Joi.string().required(),
-      }).required(),
-    }).optional(),
-
-    paidAt: Joi.date().optional(),
-    createdAt: Joi.date().optional(),
-    updatedAt: Joi.date().optional(),
+    status: Joi.string().default("pending").required(),
   });
 
   return schema.validate(orderData, { abortEarly: false });

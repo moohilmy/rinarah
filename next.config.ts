@@ -28,7 +28,11 @@ const nextConfig: NextConfig = {
       "animejs",
       "zod",
       "react-icons",
+      "stripe",
+      "@stripe/react-stripe-js",
+      "@stripe/stripe-js",
       "react-hook-form",
+      'zipcodes'
     ],
   },
 };

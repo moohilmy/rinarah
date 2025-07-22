@@ -36,3 +36,19 @@ export type ShippingRateInfo = {
   estimated_days: number;
   duration_terms: string;
 };
+export type ShippoResponse = {
+  transactionId: string; 
+  rateId: string; 
+  trackingNumber: string;
+  trackingStatus: string; 
+  labelUrl: string | null; 
+  status: string; 
+  objectState: "VALID" | "INVALID" | string; 
+
+  messages: {
+    source?: string;
+    code?: string;
+    text: string;
+  }[];
+}
+export type TAddress = Omit<TShippingInfo, 'email' | 'phone' | 'name'>

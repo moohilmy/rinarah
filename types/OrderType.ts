@@ -1,3 +1,6 @@
+import { CartType } from "./CartType";
+import { ShippoResponse } from "./shippingType";
+export type TItem = Pick<CartType, "id" | "name" | "price" | "quantity">;
 
 export type TOrder = {
   stripePaymentIntentId: string;
@@ -6,10 +9,13 @@ export type TOrder = {
   amountTotal: number;
   currency: string;
   customerEmail: string;
-
+  isEmailSent?: boolean;
+  subtotal: number,
+  tax: number,
   shipping: {
     name: string;
     phone: string;
+    shippingPrice: number;
     address: {
       line1: string;
       city: string;
@@ -19,23 +25,15 @@ export type TOrder = {
     };
   };
 
-  shippo: {
-    shipmentId: string;
-    rateId: string;
-    trackingNumber?: string;
-    carrier?: string;
-    serviceLevel?: string;
-    labelUrl?: string;
-  };
+  shippo: ShippoResponse;
+  createdAt?: string;
+  items: TItem[];
 
-  items: {
-    productId: string;
-    productName: string;
-    quantity: number;
-    unitPrice: number;
-  }[];
-
-  status: "pending" | "paid" | "shipped" | "delivered" | "cancelled";
-  createdAt: Date;
-  updatedAt: Date;
+  status:
+    | "pending"
+    | "paid"
+    | "shipped"
+    | "delivered"
+    | "cancelled"
+    | "succeeded";
 };

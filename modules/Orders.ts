@@ -18,6 +18,7 @@ const OrderSchema = new Schema<IOrderDocument>(
     shipping: {
       name: String,
       phone: String,
+      shippingPrice: Number,
       address: {
         line1: String,
         city: String,

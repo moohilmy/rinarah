@@ -6,6 +6,7 @@ import mongoose from "mongoose";
 import Stripe from "stripe";
 
 import { cancelShippoLabel } from "@/lib/shippo";
+import { validateObjectId } from "@/middleware/validateObjectId";
 const stripe = new Stripe(process.env.SECRET_API_KEY as string, {
   apiVersion: "2025-04-30.basil",
 });
@@ -33,6 +34,8 @@ export const createOrder = async (req: NextRequest) => {
       amountTotal,
       currency,
       customerEmail,
+      tax,
+      subtotal,
     } = body;
 
     const existingOrder = await Order.findOne({ stripePaymentIntentId });
@@ -78,6 +81,8 @@ export const createOrder = async (req: NextRequest) => {
           amountTotal,
           currency,
           customerEmail,
+          tax,
+          subtotal,
         },
       ],
       { session }
@@ -139,7 +144,7 @@ export const cancellOrder = async (stripeID: string) => {
       );
     }
 
-    const order  = await Order.findOne({ stripePaymentIntentId: stripeID });
+    const order = await Order.findOne({ stripePaymentIntentId: stripeID });
 
     if (!order) {
       return NextResponse.json({ message: "Order not found" }, { status: 404 });
@@ -177,8 +182,41 @@ export const cancellOrder = async (stripeID: string) => {
     await Order.findByIdAndDelete(order._id);
 
     return NextResponse.json(
-      
-      { ok : true , message: "Order cancelled successfully" },
+      { ok: true, message: "Order cancelled successfully" },
+      { status: 200 }
+    );
+  } catch (error) {
+    console.error("[Order Cancel Error]", error);
+    return NextResponse.json(
+      { message: `Internal Server Error: ${error}` },
+      { status: 500 }
+    );
+  }
+};
+
+export const updateEmailSent = async (orderID: string) => {
+  try {
+    
+
+    const validationResponse = validateObjectId(orderID);
+    
+
+    if (validationResponse) return validationResponse;
+    const updatedOrder = await Order.findByIdAndUpdate(
+      orderID,
+      { isEmailSent: true },
+      { new: true }
+    );
+
+    if (!updatedOrder) {
+      return NextResponse.json(
+        { message: "Order not found." },
+        { status: 404 }
+      );
+    }
+
+    return NextResponse.json(
+      { message: "Email status updated successfully.", order: updatedOrder },
       { status: 200 }
     );
   } catch (error) {

@@ -40,8 +40,8 @@ export function CheckoutFormField() {
   const weight = useCartStore((s) => s.totalWeight());
   const total = useCartStore((s) => s.grandTotal());
   const clear = useCartStore((s) => s.clearCart);
-  const subtotal = useCartStore((s) => s.subtotal())
-  const tax = useCartStore((s) => s.tax())
+  const subtotal = useCartStore((s) => s.subtotal());
+  const tax = useCartStore((s) => s.tax());
   const totalItems = useCartStore((s) => s.items);
   const secret = useCartStore((s) => s.clientSecret);
   const setClientSecret = useCartStore((s) => s.setClientSecret);

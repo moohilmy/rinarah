@@ -4,8 +4,7 @@ import styles from "./styles.module.css";
 import { getAllProducts } from "@/utils";
 
 export default async function Products() {
-  const notworkRightNow = false;
-  if (!notworkRightNow) return;
+
   const productList: TProductRes[] = await getAllProducts();
 
   return (

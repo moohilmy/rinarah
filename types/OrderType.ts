@@ -3,6 +3,7 @@ import { ShippoResponse } from "./shippingType";
 export type TItem = Pick<CartType, "id" | "name" | "price" | "quantity">;
 
 export type TOrder = {
+  _id?: string,
   stripePaymentIntentId: string;
   paymentStatus: string;
   paymentMethod: string;

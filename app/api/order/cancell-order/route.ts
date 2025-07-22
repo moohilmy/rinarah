@@ -6,7 +6,7 @@ export async function DELETE( req : NextRequest  ) {
   await connectDB();
   const { stripeID } = await req.json();
 
-  console.log(stripeID);
+  
   
   if (!stripeID) {
     return NextResponse.json(

@@ -2,7 +2,7 @@ import mongoose, { Schema, Document } from "mongoose";
 import { TOrder } from "@/types";
 import Joi from "joi";
 
-export interface IOrderDocument extends TOrder, Document {}
+export interface IOrderDocument extends Omit<TOrder, "_id">, Document {}
 
 const OrderSchema = new Schema<IOrderDocument>(
   {

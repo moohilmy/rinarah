@@ -29,7 +29,6 @@ export const createOrder = async (req: NextRequest) => {
       shippo,
       status,
       stripePaymentIntentId,
-      paymentMethod,
       paymentStatus,
       amountTotal,
       currency,
@@ -67,7 +66,16 @@ export const createOrder = async (req: NextRequest) => {
         );
       }
     }
-
+    const paymentIntent = await stripe.paymentIntents.retrieve(
+      stripePaymentIntentId
+    );
+    const paymentMethodType = await stripe.paymentMethods.retrieve(
+      paymentIntent.payment_method as string
+    );
+    const paymentMethod =
+      paymentMethodType.card?.brand +
+      " ending in " +
+      paymentMethodType.card?.last4;
     const newOrder = await Order.create(
       [
         {
@@ -196,10 +204,7 @@ export const cancellOrder = async (stripeID: string) => {
 
 export const updateEmailSent = async (orderID: string) => {
   try {
-    
-
     const validationResponse = validateObjectId(orderID);
-    
 
     if (validationResponse) return validationResponse;
     const updatedOrder = await Order.findByIdAndUpdate(

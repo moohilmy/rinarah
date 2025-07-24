@@ -10,6 +10,8 @@ export const CreateProduct = async (
   context: { params: Promise<{ AdminID: string }> }
 ) => {
   try {
+    
+    
     const auth = await verifyAdmin(req);
     if (!auth.valid) {
       return NextResponse.json({ message: auth.message }, { status: 403 });
@@ -55,8 +57,6 @@ export const CreateProduct = async (
       price: body.price,
       discountPercent: body.discountPercent ?? 0,
       isDiscount: body.isDiscount ?? false,
-      isInStock: true,
-      isApproved: false,
     });
 
     return NextResponse.json(product, {

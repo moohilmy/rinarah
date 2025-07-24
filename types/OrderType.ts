@@ -6,7 +6,7 @@ export type TOrder = {
   _id?: string,
   stripePaymentIntentId: string;
   paymentStatus: string;
-  paymentMethod: string;
+  paymentMethod?: string;
   amountTotal: number;
   currency: string;
   customerEmail: string;

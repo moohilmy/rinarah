@@ -3,14 +3,13 @@ html {
   scroll-behavior: smooth;
 }
 :root {
-  
-  --primary: #3F502A;
+  --primary: #3f502a;
   --background: #fdfae3;
   --second-color: #562a17;
-  --text-color: #3F502A;
-  --gradient-color: #5F6E39;
-  --third-color: #D57929;
-  --first-linear-color: #EDb05b;
+  --text-color: #3f502a;
+  --gradient-color: #5f6e39;
+  --third-color: #d57929;
+  --first-linear-color: #edb05b;
 }
 .subFont {
   font-family: var(--font-roboto-sans);
@@ -131,7 +130,7 @@ html {
   animation: loadingImage 1.8s ease-in-out infinite;
   transform-origin: center;
 }
-.rinarah-checkout-title{
+.rinarah-checkout-title {
   font-size: 1.2rem;
   font-weight: 800;
   color: var(--text-color);
@@ -141,7 +140,9 @@ html {
   position: relative;
   width: 100%;
 }
-.rinarah-checkout-label , .rinarah-checkout-label-state {
+
+.rinarah-checkout-label,
+.rinarah-checkout-label-state {
   position: absolute;
   font-size: 0.7rem;
   font-weight: 800;
@@ -151,7 +152,7 @@ html {
   left: 0.6rem;
   transition: all 0.3s ease-in-out;
 }
-.rinarah-checkout-label{
+.rinarah-checkout-label {
   opacity: 0;
   top: 1.1rem;
 }
@@ -197,9 +198,9 @@ html {
   border-color: var(--primary);
   outline: none;
 }
-.rinarah-error-message{
+.rinarah-error-message {
   color: #984a4a;
-  font-size: .6rem;
+  font-size: 0.6rem;
   font-weight: 600;
   text-transform: capitalize;
   transition: 0.2s all ease-in-out;

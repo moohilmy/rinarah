@@ -46,10 +46,10 @@ export function CheckoutFormField() {
   const secret = useCartStore((s) => s.clientSecret);
   const setClientSecret = useCartStore((s) => s.setClientSecret);
 
-  const [hydrated, setHydrated] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
-
+  
+  const [hydrated, setHydrated] = useState(false);
   useEffect(() => setHydrated(true), []);
 
   const createShippingLabel = useCallback(
@@ -170,13 +170,15 @@ export function CheckoutFormField() {
       }
 
       if (paymentIntent?.status === "succeeded") {
+
+        
+        
         const shippo = await createShippingLabel(data.shippingInfo.objectId);
         const newOrder: TOrder = {
           stripePaymentIntentId: paymentIntent.id,
           paymentStatus: paymentIntent.status,
           subtotal,
           tax,
-          paymentMethod: paymentIntent.payment_method as string,
           amountTotal: snapshotTotal,
           currency: paymentIntent.currency,
           customerEmail: data.email,

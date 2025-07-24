@@ -67,7 +67,7 @@ export const validateOrder = (orderData: TOrder) => {
   const schema = Joi.object({
     stripePaymentIntentId: Joi.string().required(),
     paymentStatus: Joi.string().required(),
-    paymentMethod: Joi.string().required(),
+    paymentMethod: Joi.string().optional(),
     amountTotal: Joi.number().min(0).required(),
     tax: Joi.number().min(0).required(),
     subtotal: Joi.number().min(0).required(),

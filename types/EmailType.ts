@@ -12,5 +12,6 @@ export type TEmail ={
     total: number,
     customerEmail: string
     billing: Tbilling,
+    returnLink: string,
     items: TItem[]
 }

@@ -8,5 +8,6 @@ export async function POST(
   context: { params: Promise<{ AdminID: string }> }
 ) {
   await connectDB();
+  
   return await CreateProduct(req,context);
 }

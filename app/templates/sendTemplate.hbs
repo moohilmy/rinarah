@@ -154,22 +154,22 @@
               <tr>
                 <td>{{this.name}}</td>
                 <td align="center">{{this.qty}}</td>
-                <td>{{this.price}}</td>
+                <td>{{this.price}} $</td>
               </tr>
               {{/each}}
 
               <!-- Summary -->
               <tr class="summary">
                 <td colspan="2">Subtotal:</td>
-                <td>{{subtotal}}</td>
+                <td>{{subtotal}} $</td>
               </tr>
               <tr class="summary">
                 <td colspan="2">Tax:</td>
-                <td>{{tax}}</td>
+                <td>{{tax}} $</td>
               </tr>
               <tr class="summary">
                 <td colspan="2">Shipping:</td>
-                <td>{{billing.shippingPrice}}</td>
+                <td>{{billing.shippingPrice}} $</td>
               </tr>
               <tr class="summary">
                 <td colspan="2">Payment:</td>
@@ -177,7 +177,7 @@
               </tr>
               <tr class="summary total">
                 <td colspan="2">Total:</td>
-                <td>{{total}}</td>
+                <td>{{total}} $</td>
               </tr>
             </tbody>
           </table>
@@ -193,11 +193,17 @@
               {{customerEmail}}
             </p>
           </div>
+<p style="margin-top: 30px; text-align: center;">
+  <a href="{{returnLink}}" style="color: #D57929; text-decoration: underline;">
+    Want to return your order? Click here
+  </a>
+</p>
+
+<p style="margin-top: 25px;">Thanks again for choosing Rinarah 🌿</p>
 
           <p style="margin-top: 25px;">Thanks again for choosing Rinarah 🌿</p>
         </div>
 
-        <!-- Footer -->
         <div class="footer">
           &copy; 2025 Rinarah. All rights reserved.
         </div>

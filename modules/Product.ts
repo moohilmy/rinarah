@@ -82,8 +82,6 @@ const validateCreateProduct = (obj: TProduct) => {
       weight: Joi.number().required(),
     }).required(),
     isDiscount: Joi.boolean().default(false),
-    isInStock: Joi.boolean().default(true),
-    isApproved: Joi.boolean().default(false),
   });
 
   return schema.validate(obj);

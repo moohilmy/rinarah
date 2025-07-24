@@ -19,9 +19,9 @@ export function RefundButton({ pi }: { pi: string }) {
         body: JSON.stringify({
           stripeID: pi,
         }),
-      });
+      })
 
-      const data = await res.json();
+      const data = await res.json()
 
       if (res.ok) {
         setMessage("Refund successful! ✅");

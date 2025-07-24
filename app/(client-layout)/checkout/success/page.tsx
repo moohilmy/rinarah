@@ -2,10 +2,7 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import { checkOrderIsCorrect } from "@/utils";
 import { TEmail, TOrder } from "@/types";
-import Stripe from "stripe";
-const stripe = new Stripe(process.env.SECRET_API_KEY!, {
-  apiVersion: "2025-04-30.basil",
-});
+
 const sentEmail = async (emailBody: TEmail) => {
   try {
     const res = await fetch(`${process.env.BASE_URL}/api/email/send-email`, {
@@ -47,17 +44,11 @@ export default async function SuccessPage({
     tax,
     items,
     amountTotal,
+    paymentMethod,
     shipping,
     stripePaymentIntentId,
     customerEmail,
   } = order;
-
-  const paymentIntent = await stripe.paymentIntents.retrieve(
-    stripePaymentIntentId
-  );
-  const paymentMethodType = await stripe.paymentMethods.retrieve(
-    paymentIntent.payment_method as string
-  );
 
   if (!order.isEmailSent) {
     const timeCreateOrder = new Date(order?.createdAt as string).toLocaleString(
@@ -73,11 +64,11 @@ export default async function SuccessPage({
     );
     const total = Number(amountTotal.toFixed(2));
 
-    const paymentMethod =
-      paymentMethodType.card?.brand +
-      " ending in " +
-      paymentMethodType.card?.last4;
-
+    if (!paymentMethod) {
+      return;
+    }
+    console.log(paymentMethod);
+    const returnLink = `https://www.rinarah.com/order/refund?pi=${stripePaymentIntentId}`
     sentEmail({
       customerEmail,
       customerName: shipping.name,
@@ -90,6 +81,7 @@ export default async function SuccessPage({
       items,
       shipping: shipping.shippingPrice,
       billing: shipping,
+      returnLink,
     });
 
     await emailSent(order?._id as string);

@@ -68,23 +68,27 @@ export default async function SuccessPage({
       return;
     }
     console.log(paymentMethod);
-    const returnLink = `https://www.rinarah.com/order/refund?pi=${stripePaymentIntentId}`
-    sentEmail({
-      customerEmail,
-      customerName: shipping.name,
-      orderId: stripePaymentIntentId,
-      orderDate: timeCreateOrder,
-      subtotal,
-      tax: Number(tax.toFixed(2)),
-      paymentMethod,
-      total,
-      items,
-      shipping: shipping.shippingPrice,
-      billing: shipping,
-      returnLink,
-    });
-
-    await emailSent(order?._id as string);
+    const returnLink = `https://www.rinarah.com/order/refund?pi=${stripePaymentIntentId}`;
+    try {
+      // 1. ابعت الإيميل
+      await sentEmail({
+        customerEmail,
+        customerName: shipping.name,
+        orderId: stripePaymentIntentId,
+        orderDate: timeCreateOrder,
+        subtotal,
+        tax: Number(tax.toFixed(2)),
+        paymentMethod,
+        total,
+        items,
+        shipping: shipping.shippingPrice,
+        billing: shipping,
+        returnLink,
+      });
+      await emailSent(order?._id as string);
+    } catch (err) {
+      console.error("❌ حصل خطأ أثناء إرسال الإيميل أو التحديث:", err);
+    }
   }
 
   return (

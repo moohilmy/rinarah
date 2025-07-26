@@ -53,6 +53,9 @@
   width: 4rem;
   height: 1rem;
 }
+.itemHeader {
+  font-size: 1.1rem;
+}
 @keyframes skeletonPulse {
   0% {
     opacity: 1;

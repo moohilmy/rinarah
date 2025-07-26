@@ -8,10 +8,8 @@ export async function POST(req: Request) {
   try {
     const data: TEmail = await req.json();
 
-    // ✅ Define the path to the templates directory (from root)
     const templatePath = path.join(process.cwd(), "templates");
 
-    // ✅ Configure transporter
     const transporter = nodemailer.createTransport({
       host: "smtp.gmail.com",
       port: 587,
@@ -22,7 +20,6 @@ export async function POST(req: Request) {
       },
     });
 
-    // ✅ Use handlebars template engine
     transporter.use(
       "compile",
       hbs({

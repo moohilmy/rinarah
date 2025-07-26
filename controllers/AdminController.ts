@@ -3,8 +3,7 @@ import { connectDB } from "@/lib";
 import { serialize } from "cookie";
 import { Admin, CreateToken, validateLoginUser } from "@/modules/Admin";
 import bcrypt from "bcrypt";
-import jwt from 'jsonwebtoken';
-
+import jwt from "jsonwebtoken";
 
 export const LoginAdmin = async (req: NextRequest) => {
   try {
@@ -85,8 +84,10 @@ export const CheckLogin = async (req: NextRequest) => {
       iat: number;
       exp: number;
     };
-    
-    const admin = await Admin.findById(decoded._id).select("userName LastDateLogIn");
+
+    const admin = await Admin.findById(decoded._id).select(
+      "userName LastDateLogIn"
+    );
 
     if (!admin) {
       return NextResponse.json({ message: "Admin not found" }, { status: 404 });
@@ -96,8 +97,10 @@ export const CheckLogin = async (req: NextRequest) => {
       userName: admin.userName,
       lastDateLogIn: admin.LastDateLogIn,
     });
-
   } catch (error) {
-    return NextResponse.json({ message: `Invalid token ${error}`}, { status: 401 });
+    return NextResponse.json(
+      { message: `Invalid token ${error}` },
+      { status: 401 }
+    );
   }
 };

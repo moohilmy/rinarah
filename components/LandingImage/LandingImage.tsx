@@ -62,7 +62,7 @@ export default function LandingImage() {
               fill
               className={`${styles.backGroundImg} swep-animate`}
               alt="background-img"
-              src={'https://res.cloudinary.com/dvz8rxqde/image/upload/v1752403439/hrbirare7dzwoj0afxzm.png'}
+              src={'https://res.cloudinary.com/dvz8rxqde/image/upload/v1753491782/wbjbgxaljchqx2lpomaw.png'}
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
               
             />
@@ -80,7 +80,7 @@ export default function LandingImage() {
               fill
               alt="background-img"
               className={`${styles.backGroundImg} swep-animate`}
-              src={'https://res.cloudinary.com/dvz8rxqde/image/upload/v1752403439/hrbirare7dzwoj0afxzm.png'} 
+              src={'https://res.cloudinary.com/dvz8rxqde/image/upload/v1753491782/wbjbgxaljchqx2lpomaw.png'} 
               loading='eager'
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
               style={{transform: 'scaleX(-1)'}}
@@ -96,10 +96,10 @@ export default function LandingImage() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{
-            opacity: { duration: 1.2, delay: 0, ease: "linear" }, // تظهر في ثانية
+            opacity: { duration: 1.2, delay: 0, ease: "linear" },
           }}
         >
-          <Image fill  priority={true} sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" alt="front" src={'https://res.cloudinary.com/dvz8rxqde/image/upload/v1752403652/kd7czsgpvqycewjncdao.png'} style={{ objectFit: "cover" }} />
+          <Image fill  priority={true} sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" alt="front" src={'https://res.cloudinary.com/dvz8rxqde/image/upload/v1753491973/nzrios7ivpcaa8duuu1q.png'} style={{ objectFit: "cover" }} />
         </motion.div>
 
         {/* Bag Image */}

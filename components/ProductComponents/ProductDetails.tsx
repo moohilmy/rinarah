@@ -12,7 +12,7 @@ export default function ProductDetails() {
             <p className={styles.productDescription}>Discover the secret of ancient Egyptian skincare with rinarah – 100% natural loofah handpicked from the fertile lands of the Nile. Grown under the warm Egyptian sun and traditionally processed to preserve its strength and purity, our loofah is perfect for exfoliating, stimulating blood circulation, and leaving your skin glowing.</p>
         </div>
         <div className={styles.productContentImg}>
-            <Image loading="lazy" sizes="(max-width: 768px) 100vw, (min-width: 769px) 50vw" src={'https://res.cloudinary.com/dvz8rxqde/image/upload/v1752403833/ji9mobqd8c2uienypc9j.png'} alt="ads" fill style={{
+            <Image loading="lazy" sizes="(max-width: 768px) 100vw, (min-width: 769px) 50vw" src={'https://res.cloudinary.com/dvz8rxqde/image/upload/v1753491674/vmerxjbfwpjsqeigkrrz.png'} alt="ads" fill style={{
               objectFit: "cover",
               objectPosition: "center",
             }}/>

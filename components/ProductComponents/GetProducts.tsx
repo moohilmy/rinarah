@@ -7,7 +7,7 @@ export default function GetProducts() {
     <section className={`${styles.getProductSection} parallax-section`}>
       <div className={styles.getProductContant}>
         <Image 
-          src="/loofah.png"
+          src="https://res.cloudinary.com/dvz8rxqde/image/upload/v1753491366/vf3eflhesuwzjnwmfinv.png"
           alt="Get Our Products"
           width={125}
           height={125}

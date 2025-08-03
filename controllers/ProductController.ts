@@ -33,24 +33,7 @@ export const CreateProduct = async (
       productName: body.productName,
       productDescription: body.productDescription,
       mainImage: body.mainImage,
-      subImages: body.subImages ?? [
-        {
-          url: "https://res.cloudinary.com/deolyu2lp/image/upload/v1747931163/default-img.png",
-          publicID: null,
-        },
-        {
-          url: "https://res.cloudinary.com/deolyu2lp/image/upload/v1747931163/default-img.png",
-          publicID: null,
-        },
-        {
-          url: "https://res.cloudinary.com/deolyu2lp/image/upload/v1747931163/default-img.png",
-          publicID: null,
-        },
-        {
-          url: "https://res.cloudinary.com/deolyu2lp/image/upload/v1747931163/default-img.png",
-          publicID: null,
-        },
-      ],
+      subImages: body.subImages,
       whoCreated: AdminID,
       countofProduct: body.countofProduct,
       dimensions: body.dimensions,

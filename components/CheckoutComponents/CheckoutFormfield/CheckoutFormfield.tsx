@@ -351,7 +351,6 @@ export function CheckoutFormField() {
           />
         </section>
 
-        {/* -------- Payment -------- */}
         <section className="flex flex-col gap-4 mt-4">
           <h2 className="rinarah-checkout-title">Payment method</h2>
           <p className="mt-1 text-xs font-bold text-gradient-color">

@@ -79,6 +79,8 @@ export const CheckLogin = async (req: NextRequest) => {
   }
 
   try {
+    console.log('kkkkkkkkkkkkkkkkkk');
+    
     const decoded = jwt.verify(token, process.env.JWT_SECRET!) as {
       _id: string;
       iat: number;
@@ -86,17 +88,27 @@ export const CheckLogin = async (req: NextRequest) => {
     };
 
     const admin = await Admin.findById(decoded._id).select(
-      "userName LastDateLogIn"
+      "userName LastDateLogIn _id"
     );
 
     if (!admin) {
       return NextResponse.json({ message: "Admin not found" }, { status: 404 });
     }
 
-    return NextResponse.json({
+    const response = NextResponse.json({
       userName: admin.userName,
       lastDateLogIn: admin.LastDateLogIn,
+      id: admin._id,
     });
+
+    response.cookies.set("id", admin._id, {
+      httpOnly: true,
+      maxAge: 60 * 60 * 2, 
+      path: "/",
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "strict",
+    });
+    return response;
   } catch (error) {
     return NextResponse.json(
       { message: `Invalid token ${error}` },

@@ -87,7 +87,7 @@ export default async function SuccessPage({
       });
       await emailSent(order?._id as string);
     } catch (err) {
-      console.error("❌ حصل خطأ أثناء إرسال الإيميل أو التحديث:", err);
+      console.error("❌ email sending error:", err);
     }
   }
 

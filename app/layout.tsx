@@ -7,10 +7,16 @@ import { Analytics } from "@vercel/analytics/next"
 export const metadata: Metadata = {
   metadataBase: new URL("https://rinarah.com"),
   title: "RINARAH",
+  
   description:
     "Inspired by natural beauty — RINARAH is a natural skincare brand offering eco-friendly products like loofahs that elevate your self-care rituals through gentle exfoliation, deep cleansing, and mindful beauty rooted in nature.",
   keywords: [
     "RINARAH",
+    'egyption loofah',
+    'natural loofagh',
+    "RINARAH",
+    'egyption loofah in usa',
+    'natural loofagh in usa',
     "natural beauty",
     "organic",
     "egyptian loofahs",
@@ -65,7 +71,6 @@ export default function RootLayout({
         className={`${mainFont.className} ${logoFont.variable} ${textFont.variable} antialiased`}
       >
         <ToastContainer />
-
         {children}
         <Analytics />
       </body>

@@ -8,6 +8,7 @@ const stripe = new Stripe(process.env.SECRET_API_KEY!, {
   apiVersion: "2025-04-30.basil",
 });
 
+
 export async function POST(req: NextRequest) {
   const body = await req.text();
   const header = await headers();
@@ -26,9 +27,11 @@ export async function POST(req: NextRequest) {
     return new NextResponse(`Webhook Error: ${err}`, { status: 400 });
   }
 
+  
   if (event.type === "payment_intent.succeeded") {
     const paymentIntent = event.data.object as Stripe.PaymentIntent;
 
+ setTimeout(async () => {
     try {
       const order = await getOrderByPaymentIntentId(paymentIntent.id);
 
@@ -41,6 +44,7 @@ export async function POST(req: NextRequest) {
     } catch (err) {
       console.error("❌ Failed to send delayed order email:", err);
     }
+  }, 1 * 60 * 1000); 
   }
 
   return new NextResponse("✅ Webhook received", { status: 200 });

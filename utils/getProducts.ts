@@ -1,13 +1,15 @@
 export const getAllProducts = async () => {
-  const products = await fetch(
-    
-    `${process.env.BASE_URL}/api/products/get-all-products`,
-    {
-      next: { revalidate: 86400 }, 
-    }
-  ).then(res => res.json())
-  if (!products || products.length === 0) {
-    return null;
+  try {
+    const products = await fetch(
+      `${process.env.BASE_URL}/api/products/get-all-products`,
+      {
+        next: { revalidate: 86400 },
+      }
+    );
+    const data = await products.json();
+    return data;
+  } catch (error) {
+    console.error("Failed to fetch products:", error);
+    return [];
   }
-  return products
 };

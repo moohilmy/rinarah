@@ -4,5 +4,6 @@ import { connectDB } from "@/lib";
 export async function GET() {
     
     await connectDB()
+    
     return await getALlProductsApproved()
 }

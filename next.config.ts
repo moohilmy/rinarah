@@ -25,7 +25,6 @@ const nextConfig: NextConfig = {
 
   experimental: {
     optimizePackageImports: [
-      "animejs",
       "zod",
       "react-icons",
       "stripe",

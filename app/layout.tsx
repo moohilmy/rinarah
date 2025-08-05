@@ -39,7 +39,7 @@ export const metadata: Metadata = {
     siteName: "RINARAH",
     images: [
       {
-        url: "/logo-landscape.png",
+        url: "/logo-landscape.jpg",
         width: 1200,
         height: 630,
         alt: "RINARAH - Natural Skincare Brand",
@@ -51,7 +51,7 @@ export const metadata: Metadata = {
     title: "RINARAH",
     description:
       "Inspired by natural beauty — RINARAH is a natural skincare brand offering eco-friendly products like loofahs that elevate your self-care rituals through gentle exfoliation, deep cleansing, and mindful beauty rooted in nature.",
-    images: ["/logo-landscape.png"],
+    images: ["/logo-landscape.jpg"],
   },
   robots: {
   index: true,

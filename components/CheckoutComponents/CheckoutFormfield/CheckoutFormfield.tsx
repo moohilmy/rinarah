@@ -173,6 +173,7 @@ export function CheckoutFormField() {
 
         
         
+        
         const shippo = await createShippingLabel(data.shippingInfo.objectId);
         const newOrder: TOrder = {
           stripePaymentIntentId: paymentIntent.id,

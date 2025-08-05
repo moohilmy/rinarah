@@ -12,16 +12,17 @@ export const sendOrderEmail = async (order: TOrder) => {
         pass: process.env.EMAIL_PASS!,
       },
     });
-
+    const templatePath = path.join(process.cwd(), "templates");
     transporter.use(
       "compile",
       hbs({
         viewEngine: {
           extname: ".hbs",
-          partialsDir: path.resolve("./templates"),
+          partialsDir: templatePath,
+          layoutsDir: templatePath,
           defaultLayout: false,
         },
-        viewPath: path.resolve("./templates"),
+        viewPath: templatePath,
         extName: ".hbs",
       })
     );

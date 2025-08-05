@@ -8,7 +8,6 @@ const stripe = new Stripe(process.env.SECRET_API_KEY!, {
   apiVersion: "2025-04-30.basil",
 });
 
-
 export async function POST(req: NextRequest) {
   const body = await req.text();
   const header = await headers();
@@ -26,26 +25,27 @@ export async function POST(req: NextRequest) {
     console.error("❌ Webhook signature verification failed.", err);
     return new NextResponse(`Webhook Error: ${err}`, { status: 400 });
   }
+  setTimeout(async () => {
+    if (event.type === "payment_intent.succeeded") {
+      const paymentIntent = event.data.object as Stripe.PaymentIntent;
 
-  
-  if (event.type === "payment_intent.succeeded") {
-    const paymentIntent = event.data.object as Stripe.PaymentIntent;
+      try {
+        const order = await getOrderByPaymentIntentId(paymentIntent.id);
 
- setTimeout(async () => {
-    try {
-      const order = await getOrderByPaymentIntentId(paymentIntent.id);
-
-      if (order) {
-        await sendOrderEmail(order);
-        console.log("✅ Delayed order email sent successfully.");
-      } else {
-        console.warn("⚠️ Order not found for PaymentIntent:", paymentIntent.id);
+        if (order) {
+          await sendOrderEmail(order);
+          console.log("✅ Delayed order email sent successfully.");
+        } else {
+          console.warn(
+            "⚠️ Order not found for PaymentIntent:",
+            paymentIntent.id
+          );
+        }
+      } catch (err) {
+        console.error("❌ Failed to send delayed order email:", err);
       }
-    } catch (err) {
-      console.error("❌ Failed to send delayed order email:", err);
     }
-  }, 1 * 60 * 1000); 
-  }
+  }, 1000);
 
   return new NextResponse("✅ Webhook received", { status: 200 });
 }

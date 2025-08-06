@@ -30,7 +30,7 @@ export async function POST(req: NextRequest) {
     const paymentIntent = event.data.object as Stripe.PaymentIntent;
 
     try {
-      await new Promise((resolve) => setTimeout(resolve, 15 * 1000));
+      await new Promise((resolve) => setTimeout(resolve, 30 * 1000));
       const order = await getOrderByPaymentIntentId(paymentIntent.id);
 
       if (order) {

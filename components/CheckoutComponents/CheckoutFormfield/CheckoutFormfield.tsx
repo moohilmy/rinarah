@@ -48,29 +48,40 @@ export function CheckoutFormField() {
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
-  
+
   const [hydrated, setHydrated] = useState(false);
   useEffect(() => setHydrated(true), []);
 
   const createShippingLabel = useCallback(
-    async (objectId: string): Promise<ShippoResponse> => {
-      const res = await fetch("/api/shipping/get-label", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ rateObjectId: objectId }),
-      });
-      if (!res.ok) throw new Error("Failed to create shipping label");
-      const data = await res.json();
-      return {
-        transactionId: data.object_id,
-        rateId: data.rate,
-        status: data.status,
-        messages: data.messages,
-        trackingNumber: data.tracking_number,
-        trackingStatus: data.tracking_status,
-        labelUrl: data.label_url,
-        objectState: data.object_state,
-      };
+    async (objectId: string): Promise<ShippoResponse | null> => {
+      try {
+        const res = await fetch("/api/shipping/get-label", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ rateObjectId: objectId }),
+        });
+
+        if (!res.ok) {
+          console.error("Failed to create shipping label", await res.text());
+          return null;
+        }
+
+        const data = await res.json();
+
+        return {
+          transactionId: data.object_id,
+          rateId: data.rate,
+          status: data.status,
+          messages: data.messages,
+          trackingNumber: data.tracking_number,
+          trackingStatus: data.tracking_status,
+          labelUrl: data.label_url,
+          objectState: data.object_state,
+        };
+      } catch (error) {
+        console.error("Shipping label error:", error);
+        return null;
+      }
     },
     []
   );
@@ -81,7 +92,13 @@ export function CheckoutFormField() {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ intentId, amount }),
     });
-    return await res.json();
+      const data = await res.json();
+
+  if (!res.ok) {
+    throw new Error(data.error || "Unknown error");
+  }
+
+  return data;
   };
 
   const createOrder = useCallback(async (order: TOrder) => {
@@ -170,11 +187,16 @@ export function CheckoutFormField() {
       }
 
       if (paymentIntent?.status === "succeeded") {
-
-        
-        
-        
         const shippo = await createShippingLabel(data.shippingInfo.objectId);
+        if (!shippo) {
+          return router.replace(
+            `/checkout/failure?error=${encodeURIComponent(
+              "Shipping Failed"
+            )}&errorMessage=${encodeURIComponent(
+              "Failed to create shipping label"
+            )}`
+          );
+        }
         const newOrder: TOrder = {
           stripePaymentIntentId: paymentIntent.id,
           paymentStatus: paymentIntent.status,
@@ -216,7 +238,9 @@ export function CheckoutFormField() {
         };
 
         await createOrder(newOrder);
-        clear();
+        setTimeout(() => {
+          clear();
+        }, 500);
         router.replace(`/checkout/success?pi=${paymentIntent.id}`);
       }
     } catch (err) {

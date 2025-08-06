@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import Stripe from "stripe";
-import { sendOrderEmail } from "@/lib/sendOrderEmail"; // المسار حسب مكان ملف الإرسال
+import { sendOrderEmail } from "@/lib/sendOrderEmail";
 import { getOrderByPaymentIntentId } from "@/lib/getOrderByStripeId";
 import { headers } from "next/headers";
 
@@ -30,6 +30,7 @@ export async function POST(req: NextRequest) {
     const paymentIntent = event.data.object as Stripe.PaymentIntent;
 
     try {
+      await new Promise((resolve) => setTimeout(resolve, 15 * 1000));
       const order = await getOrderByPaymentIntentId(paymentIntent.id);
 
       if (order) {

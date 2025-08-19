@@ -50,17 +50,22 @@ export const LoginAdmin = async (req: NextRequest) => {
       updateLogin,
     });
 
-    response.headers.set(
-      "Set-Cookie",
-      serialize("admin_token", token, {
-        httpOnly: true,
-        secure: process.env.NODE_ENV === "production",
-        sameSite: "strict",
-        path: "/",
-        maxAge: 60 * 60 * 2,
-      })
-    );
+    response.cookies.set("admin_token", token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "strict",
+      path: "/",
+      maxAge: 60 * 60 * 2,
+    });
 
+    // Cookie 2
+    response.cookies.set("admin_id", admin._id.toString(), {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "strict",
+      path: "/",
+      maxAge: 60 * 60 * 2,
+    });
     return response;
   } catch (err) {
     console.error("[LoginAdmin Error]", err);
@@ -79,8 +84,6 @@ export const CheckLogin = async (req: NextRequest) => {
   }
 
   try {
-    console.log('kkkkkkkkkkkkkkkkkk');
-    
     const decoded = jwt.verify(token, process.env.JWT_SECRET!) as {
       _id: string;
       iat: number;
@@ -101,13 +104,6 @@ export const CheckLogin = async (req: NextRequest) => {
       id: admin._id,
     });
 
-    response.cookies.set("id", admin._id, {
-      httpOnly: true,
-      maxAge: 60 * 60 * 2, 
-      path: "/",
-      secure: process.env.NODE_ENV === "production",
-      sameSite: "strict",
-    });
     return response;
   } catch (error) {
     return NextResponse.json(

@@ -14,11 +14,12 @@ export default async function Adminlayout({
     return redirect(`/app-control/${process.env.SECRET_URL}/login`);
   }
 
-  const res = await getAdminInfo(token.value);
+  await getAdminInfo(token.value);
+
+
 
   return (
     <div>
-      {res.userName}
       {children}
     </div>
   );

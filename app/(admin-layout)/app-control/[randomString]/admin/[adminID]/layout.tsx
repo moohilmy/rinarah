@@ -1,5 +1,6 @@
+import {ButtonMenu} from "@/app/(admin-layout)/components/index";
 import { cookies } from "next/headers";
-// import { redirect } from "next/navigation";
+import { redirect } from "next/navigation";
 
 export default async function Adminlayout({
   children,
@@ -7,14 +8,16 @@ export default async function Adminlayout({
   children: React.ReactNode;
 }>) {
   const cookiesStore = await cookies();
-  const access = cookiesStore.get("id");
+  const access = cookiesStore.get("admin_id");
 
   if (!access) {
-    return console.log('not access');
-    
+    return redirect(`/app-control/${process.env.SECRET_URL}/login`);
   }
 
-  return <div>
-    <div className=" text-4xl">admin id</div>
-    {children}</div>;
+  return (
+    <div className="flex md:flex-row  flex-col">
+      <ButtonMenu />
+      {children}
+    </div>
+  );
 }

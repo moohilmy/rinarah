@@ -61,10 +61,10 @@ const ProductSchema: Schema = new Schema<IProductDocument>(
 );
 
 const validateCreateProduct = (obj: TProduct) => {
-  // const photoSchema = Joi.object({
-  //   url: Joi.string().uri().required(),
-  //   publicID: Joi.string().allow(null).optional(),
-  // });
+  const photoSchema = Joi.object({
+    url: Joi.string().uri().required(),
+    publicID: Joi.string().allow(null).optional(),
+  });
 
   const schema = Joi.object({
     productName: Joi.string().min(3).max(50).required(),
@@ -72,8 +72,8 @@ const validateCreateProduct = (obj: TProduct) => {
     amazonLink: Joi.string().uri().allow(null),
     countofProduct: Joi.number().min(20).required(),
     price: Joi.number().min(0.99).required(),
-    // mainImage: photoSchema.required(),
-    // subImages: Joi.array().items(photoSchema).min(0).optional(),
+    mainImage: photoSchema.required(),
+    subImages: Joi.array().items(photoSchema).min(0).optional(),
     discountPercent: Joi.number().valid(0, 5, 10, 15, 20, 25, 35, 50).optional(),
     dimensions: Joi.object({
       length: Joi.number().required(),
@@ -81,7 +81,7 @@ const validateCreateProduct = (obj: TProduct) => {
       height: Joi.number().required(),
       weight: Joi.number().required(),
     }).required(),
-    isDiscount: Joi.boolean().default(false),
+    isDiscount: Joi.boolean().default(false).optional(),
   });
 
   return schema.validate(obj);

@@ -45,7 +45,7 @@ export default  function LoginForm({ secret }: { secret: string
         id: data.updateLogin._id,
         lastDateLogIn: data.updateLogin.LastDateLogIn,
       });
-      window.location.href = `/app-control/${secret}/admin`;
+      window.location.href = `/app-control/${secret}/admin/${data.updateLogin._id}/dashboard`;
     } catch (err: unknown) {
       setError(`${err}`);
       console.error(err);

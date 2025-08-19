@@ -218,7 +218,7 @@ export function CheckoutFormField() {
             },
           },
           shippo: {
-            status: shippo.status,
+            status: shippo.trackingStatus,
             labelUrl: shippo.labelUrl,
             rateId: shippo.rateId,
 
@@ -228,7 +228,7 @@ export function CheckoutFormField() {
             transactionId: shippo.transactionId,
             objectState: shippo.objectState,
           },
-          status: paymentIntent.status,
+          status: 'PAID',
           items: snapshotItems.map((i) => ({
             id: i.id,
             name: i.name,

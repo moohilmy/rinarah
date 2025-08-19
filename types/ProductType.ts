@@ -12,7 +12,7 @@ type TProduct = {
   discountPercent: TDiscountPercent;
   mainImage: TImage;
   subImages: TImage[];
-  amazonLink?: string;
+  amazonLink?: string | null;
   whoCreated: IAdminDocument["_id"];
   countofProduct: number;
   price: number;

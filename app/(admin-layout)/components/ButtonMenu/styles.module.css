@@ -1,0 +1,49 @@
+.navList {
+  height: 100vh;
+  background-color: var(--first-linear-color);
+  width: max-content;
+  position: sticky;
+  top: 0;
+}
+.menuList {
+  display: flex;
+
+  flex-direction: column;
+  padding: 1rem 0;
+  gap: 1rem;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+}
+.menuItem {
+  width: 100%;
+  padding: 0.5rem 1rem;
+  display: flex;
+  position: relative;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+ 
+  color: var(--primary);
+  transition: all 0.3s ease-in-out;
+}
+.linkSelected {
+  color: var(--background);
+  background-color: var(--primary);
+}
+@media (max-width : 768px) {
+  .navList {
+    width: 100%;
+    height: max-content;
+    position: relative;
+  }
+  .menuList {
+    flex-direction: row;
+    gap: 0.3rem;
+    padding: 0;
+  }
+  .menuItem {
+    padding: 1.5rem 0;
+    height: 100%;
+  }
+}

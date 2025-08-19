@@ -1,7 +1,7 @@
-import { LoginAdmin } from "@/controllers/AdminController";
+import { getAllOrders } from "@/controllers/OrderController";
 import { NextRequest, NextResponse } from "next/server";
 
-export const POST = async (
+export const GET = async (
   req: NextRequest,
   context: { params: Promise<{ randomString: string }> }
 ) => {
@@ -12,5 +12,5 @@ export const POST = async (
     return NextResponse.redirect(new URL("/", req.url));
   }
 
-  return await LoginAdmin(req);
+  return await getAllOrders(req);
 };

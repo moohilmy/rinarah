@@ -1,3 +1,5 @@
 import { checkoutSchema } from "./checkoutSchema";
 import {type ICheckoutForm } from "./checkoutSchema";
-export {checkoutSchema, ICheckoutForm}
+import { productSchema } from "./productSchema";
+import {type TProductForm } from "./productSchema";
+export {checkoutSchema, ICheckoutForm, productSchema, TProductForm}

@@ -32,9 +32,16 @@ export type TOrder = {
 
   status:
     | "pending"
-    | "paid"
-    | "shipped"
-    | "delivered"
-    | "cancelled"
-    | "succeeded";
+    | "PAID"
+    | "SHIPPED"
+    | "DELIVERED"
+    | "CANCELLED"
+    | "SUCCEEDED"
+    | "FAILURE"
+    | "REFUNDED"
+    | "CHARGEBACK"
+    | "TRANSIT"
+    | "PRE_TRANSIT"
+    | "RETURNED"
+    ;
 };

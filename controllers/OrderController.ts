@@ -7,9 +7,26 @@ import Stripe from "stripe";
 
 import { cancelShippoLabel } from "@/lib/shippo";
 import { validateObjectId } from "@/middleware/validateObjectId";
+import { verifyAdmin } from "@/middleware/verifyToken";
 const stripe = new Stripe(process.env.SECRET_API_KEY as string, {
   apiVersion: "2025-04-30.basil",
 });
+export const getAllOrders = async (req: NextRequest) => {
+  try {
+    const auth = await verifyAdmin(req);
+    if (!auth) {
+      return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
+    }
+    const orders = await Order.find();
+    return NextResponse.json(orders);
+  } catch (error) {
+    console.error("[Order Error]", error);
+    return NextResponse.json(
+      { message: `Internal Server Error ${error}` },
+      { status: 500 }
+    );
+  }
+};
 export const createOrder = async (req: NextRequest) => {
   const session = await mongoose.startSession();
 

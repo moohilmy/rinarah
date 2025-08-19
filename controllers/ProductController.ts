@@ -31,6 +31,7 @@ export const CreateProduct = async (
 
     const product = await Product.create({
       productName: body.productName,
+      amazonLink: body.amazonLink ?? null,
       productDescription: body.productDescription,
       mainImage: body.mainImage,
       subImages: body.subImages,

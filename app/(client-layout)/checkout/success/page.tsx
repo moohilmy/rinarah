@@ -67,7 +67,6 @@ export default async function SuccessPage({
     if (!paymentMethod) {
       return;
     }
-    console.log(paymentMethod);
     const returnLink = `https://www.rinarah.com/order/refund?pi=${stripePaymentIntentId}`;
     try {
       // 1. ابعت الإيميل

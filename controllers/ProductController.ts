@@ -10,8 +10,6 @@ export const CreateProduct = async (
   context: { params: Promise<{ AdminID: string }> }
 ) => {
   try {
-    
-    
     const auth = await verifyAdmin(req);
     if (!auth.valid) {
       return NextResponse.json({ message: auth.message }, { status: 403 });
@@ -57,7 +55,9 @@ export const CreateProduct = async (
 
 export const getALlProductsApproved = async () => {
   try {
-    const products = await Product.find({ isApproved: true }).select("-whoCreated");
+    const products = await Product.find({ isApproved: true }).select(
+      "-whoCreated"
+    );
     if (!products) {
       return NextResponse.json(
         { message: "Products not found" },
@@ -97,24 +97,29 @@ export const getProductbyID = async (
 
 export const ApproveProduct = async (
   req: NextRequest,
-  context: { params: { AdminID: string; productID: string } }
+  context: { params: Promise<{ AdminID: string; productID: string }> }
 ) => {
   try {
-    const validationAdminResponse = validateObjectId(context.params.AdminID);
-    const validationProductResponse = validateObjectId(
-      context.params.productID
-    );
+    const auth = await verifyAdmin(req);
+    if (!auth.valid) {
+      return NextResponse.json({ message: auth.message }, { status: 403 });
+    }
+    const { AdminID, productID } = await context.params;
+    const validationAdminResponse = validateObjectId(AdminID);
+    const validationProductResponse = validateObjectId(productID);
     if (validationAdminResponse) return validationAdminResponse;
     if (validationProductResponse) return validationProductResponse;
-    const product = await Product.findById(context.params.productID);
+    const product = await Product.findById(productID);
     if (!product) {
       return NextResponse.json(
         { message: "Product not found" },
         { status: 404 }
       );
     }
-    const admin = await Admin.findById(context.params.AdminID);
-    if (admin?._id === context.params.AdminID) {
+    const admin = await Admin.findById(AdminID);
+    console.log(typeof(admin?._id) , typeof(AdminID));
+
+    if (admin?._id.toString() === AdminID) {
       return NextResponse.json(
         {
           message:
@@ -128,6 +133,36 @@ export const ApproveProduct = async (
     return NextResponse.json(product, { status: 200 });
   } catch (error) {
     console.error("[Approve Product Error]", error);
+    return NextResponse.json(
+      { message: "Internal Server Error" },
+      { status: 500 }
+    );
+  }
+};
+
+export const GetProductsNeedApprove = async (
+  req: NextRequest,
+  context: { params: Promise<{ AdminID: string }> }
+) => {
+  try {
+    const auth = await verifyAdmin(req);
+    if (!auth.valid) {
+      return NextResponse.json({ message: auth.message }, { status: 403 });
+    }
+    const { AdminID } = await context.params;
+    const validationResponse = validateObjectId(AdminID);
+    if (validationResponse) return validationResponse;
+
+    const products = await Product.find({ isApproved: false });
+    if (!products) {
+      return NextResponse.json(
+        { message: "No products need approval" },
+        { status: 404 }
+      );
+    }
+    return NextResponse.json(products, { status: 200 });
+  } catch (error) {
+    console.error("[GetProductsNeedApprove Error]", error);
     return NextResponse.json(
       { message: "Internal Server Error" },
       { status: 500 }

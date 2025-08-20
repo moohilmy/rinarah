@@ -13,7 +13,7 @@ type TProduct = {
   mainImage: TImage;
   subImages: TImage[];
   amazonLink?: string | null;
-  whoCreated: IAdminDocument["_id"];
+  whoCreated: IAdminDocument["_id"] | string;
   countofProduct: number;
   price: number;
   isInStock: boolean;

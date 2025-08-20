@@ -369,7 +369,6 @@ export default function CreateProductForm({
         </div>
       </section>
 
-      {/* Dimensions */}
       <section className="flex flex-col gap-4">
         <h2 className="rinarah-checkout-title">Dimensions</h2>
         {(["length", "width", "height", "weight"] as const).map((dim) => (
@@ -402,7 +401,7 @@ export default function CreateProductForm({
 
       <button
         type="submit"
-        className="rinarah-submit-btn"
+        className="rinarahBtn"
         disabled={isSubmitting}
       >
         {isSubmitting ? "Creating..." : "Create Product"}

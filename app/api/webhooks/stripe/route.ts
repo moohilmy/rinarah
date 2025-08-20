@@ -35,7 +35,6 @@ export async function POST(req: NextRequest) {
 
       if (order) {
         await sendOrderEmail(order);
-        console.log("✅ Delayed order email sent successfully.");
       } else {
         console.warn("⚠️ Order not found for PaymentIntent:", paymentIntent.id);
       }

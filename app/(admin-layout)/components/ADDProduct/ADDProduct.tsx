@@ -1,4 +1,5 @@
 "use client";
+import { useRouter } from "next/navigation";
 
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -79,6 +80,7 @@ export default function CreateProductForm({
   });
 
   const { isDiscount, isProductSellInAmazon, mainImage, subImages } = watch();
+  const router = useRouter();
 
   const onSubmit = async (data: TProductForm) => {
     const newProduct = {
@@ -95,7 +97,7 @@ export default function CreateProductForm({
     };
 
     try {
-      await fetch(`/api/${adminID}/create-product`, {
+      const res = await fetch(`/api/${adminID}/create-product`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -103,6 +105,9 @@ export default function CreateProductForm({
         },
         body: JSON.stringify(newProduct),
       });
+      if (res.ok) {
+        router.replace(`/app-control/${process.env.SECRET_URL}/admin/${adminID}/dashboard`);
+      }
     } catch (error) {
       console.error("Create Product Error:", error);
     }
@@ -330,7 +335,7 @@ export default function CreateProductForm({
             className="border p-2 rounded w-full"
             disabled={isSubmitting}
           >
-            <option value="">اختر نسبة الخصم</option>
+            <option value="">choose discount</option>
             {discountOptions.map((option) => (
               <option key={option} value={option}>
                 {option}%

@@ -3,7 +3,7 @@ import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { getAllNeedApproveProducts } from "@/utils/getAllNeedApproveProducts";
 import Link from "next/link";
-import ApproveBtn from "../../../../../components/Btns/ApproveBtn" 
+import ApproveBtn from "@/app/(admin-layout)/components/Btns/ApproveBtn";
 // import EditBtn from "@/app/(admin-layout)/components/Btns/EditBtn";
 
 export default async function Page() {

@@ -3,7 +3,7 @@ import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { getAllNeedApproveProducts } from "@/utils/getAllNeedApproveProducts";
 import Link from "next/link";
-import ApproveBtn from "@/app/(admin-layout)/components/Btns/ApproveBtn"
+// import ApproveBtn from "@/app/(admin-layout)/components/Btns/ApproveBtn"
 import EditBtn from "@/app/(admin-layout)/components/Btns/EditBtn";
 
 export default async function Page() {
@@ -62,11 +62,11 @@ export default async function Page() {
               </td>
               <td className="p-3 border-b">
                 <div className="flex gap-2 flex-row justify-center">
-                  <ApproveBtn
+                  {/* <ApproveBtn
                     productID={p._id}
                     adminID={adminID.value}
                     token={token.value}
-                  />
+                  /> */}
                   <EditBtn productID={p._id} adminID={adminID.value} />
                 </div>
               </td>

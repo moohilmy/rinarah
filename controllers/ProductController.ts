@@ -83,6 +83,12 @@ export const getProductbyID = async (
     const validationResponse = validateObjectId(productID);
     if (validationResponse) return validationResponse;
     const product = await Product.findById(productID).select("-whoCreated");
+    if (!product) {
+      return NextResponse.json(
+        { message: "Products not found" },
+        { status: 404 }
+      );
+    }
     return NextResponse.json(product, {
       status: 200,
     });
@@ -117,7 +123,7 @@ export const ApproveProduct = async (
       );
     }
     const admin = await Admin.findById(AdminID);
-    console.log(typeof(admin?._id) , typeof(AdminID));
+    console.log(typeof admin?._id, typeof AdminID);
 
     if (admin?._id.toString() === AdminID) {
       return NextResponse.json(

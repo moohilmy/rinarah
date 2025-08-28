@@ -3,7 +3,8 @@ import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { getAllNeedApproveProducts } from "@/utils/getAllNeedApproveProducts";
 import Link from "next/link";
-import ApproveBtn from "@/app/(admin-layout)/components/Btns/approveBtn";
+import ApproveBtn from "@/app/(admin-layout)/components/Btns/ApproveBtn";
+import EditBtn from "@/app/(admin-layout)/components/Btns/EditBtn";
 
 export default async function Page() {
   const cookiesStore = await cookies();
@@ -46,7 +47,7 @@ export default async function Page() {
             <th className="p-3 text-left border-b">Price</th>
             <th className="p-3 text-left border-b">In Stock</th>
             <th className="p-3 text-left border-b">Created By</th>
-            <th className="p-3 text-left border-b">Actions</th>
+            <th className="p-3 text-center border-b ">Actions</th>
           </tr>
         </thead>
         <tbody>
@@ -56,8 +57,19 @@ export default async function Page() {
               <td className="p-3 border-b">{p.productName}</td>
               <td className="p-3 border-b">${p.price}</td>
               <td className="p-3 border-b">{p.countofProduct}</td>
-              <td className="p-3 border-b">{p.whoCreated as string}</td>
-              <td className="p-3 border-b"><ApproveBtn productID={p._id} adminID={adminID.value} token={token.value}/></td>
+              <td className="p-3 border-b">
+                {typeof p.whoCreated === "string" && p.whoCreated.slice(0, 8)}
+              </td>
+              <td className="p-3 border-b">
+                <div className="flex gap-2 flex-row justify-center">
+                  <ApproveBtn
+                    productID={p._id}
+                    adminID={adminID.value}
+                    token={token.value}
+                  />
+                  <EditBtn productID={p._id} adminID={adminID.value} />
+                </div>
+              </td>
             </tr>
           ))}
         </tbody>

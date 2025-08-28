@@ -32,6 +32,7 @@ type CartState = {
     id: string;
     clientSecret: string;
   } | null;
+
   addToCart: (item: CartType) => boolean;
   setClientSecret: (clientSecret: { id: string; clientSecret: string }) => void;
   removeFromCart: (id: string) => void;
@@ -44,6 +45,8 @@ type CartState = {
   subtotal: () => number;
   tax: () => number;
   grandTotal: () => number;
+
+  checkItemsValidity: () => Promise<void>;
 };
 
 export const useCartStore = create<CartState>()(
@@ -54,7 +57,9 @@ export const useCartStore = create<CartState>()(
       stateCode: "",
       shippingCost: 0,
       clientSecret: null,
+
       setClientSecret: (clientSecret) => set({ clientSecret }),
+
       addToCart: (item) => {
         const { items } = get();
         const existing = items.find((i) => i.id === item.id);
@@ -111,6 +116,23 @@ export const useCartStore = create<CartState>()(
         const { shippingCost } = get();
         return get().subtotal() + get().tax() + shippingCost;
       },
+
+      // ✅ تشيك المنتجات لو لسه موجودة
+      checkItemsValidity: async () => {
+        const { items, removeFromCart } = get();
+        try {
+          await Promise.all(
+            items.map(async (i) => {
+              const res = await fetch(`/api/products/${i.id}`);
+              if (!res.ok) {
+                removeFromCart(i.id);
+              }
+            })
+          );
+        } catch (err) {
+          console.error("Error checking items:", err);
+        }
+      },
     }),
     {
       name: "rinarah-cart",
@@ -119,6 +141,12 @@ export const useCartStore = create<CartState>()(
         items,
         totalCount,
       }),
+      onRehydrateStorage: () => (state) => {
+
+        if (state) {
+          state.checkItemsValidity?.();
+        }
+      },
     }
   )
 );

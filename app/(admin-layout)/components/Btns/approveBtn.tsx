@@ -1,8 +1,7 @@
 "use client";
 import React from "react";
 import { toast } from "react-toastify";
-// TODO: Update the import path based on your project structure
-// TODO: ADD edit functionality
+
 export default function ApproveBtn({
   adminID,
   productID,

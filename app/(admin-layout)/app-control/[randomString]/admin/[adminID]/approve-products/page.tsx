@@ -3,8 +3,8 @@ import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { getAllNeedApproveProducts } from "@/utils/getAllNeedApproveProducts";
 import Link from "next/link";
-import ApproveBtn from "@/app/(admin-layout)/components/Btns/ApproveBtn";
-// import EditBtn from "@/app/(admin-layout)/components/Btns/EditBtn";
+import ApproveBtn from "@/app/(admin-layout)/components/Btns/approveBtn";
+import EditBtn from "@/app/(admin-layout)/components/Btns/EditBtn";
 
 export default async function Page() {
   const cookiesStore = await cookies();
@@ -67,7 +67,7 @@ export default async function Page() {
                     adminID={adminID.value}
                     token={token.value}
                   />
-                  {/* <EditBtn productID={p._id} adminID={adminID.value} /> */}
+                  <EditBtn productID={p._id} adminID={adminID.value} />
                 </div>
               </td>
             </tr>

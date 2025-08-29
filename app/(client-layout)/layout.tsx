@@ -1,8 +1,8 @@
-import { Footer, Header } from "@/components";
+// import { Footer, Header } from "@/components";
 
-const links: { href: string ; name: string }[] = [
-  { name: "shop now", href: "/products" },
-];
+// const links: { href: string ; name: string }[] = [
+//   { name: "shop now", href: "/products" },
+// ];
 export default async function ClientLayout({
   children,
 }: Readonly<{
@@ -11,9 +11,9 @@ export default async function ClientLayout({
    
   return (
     <main>
-      <Header links={links}  />
+      {/* <Header links={links}  /> */}
       {children}
-      <Footer />
+      {/* <Footer /> */}
     </main>
   );
 }
